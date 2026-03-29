@@ -224,4 +224,41 @@ void bst_test() {
 
     destroy_bst(&tree);
     printf("--- Unit Tests Complete ---\n");
+
+	printf("Testing height_bst...\n");
+    BST tree2 = new_bst();
+    printf("Height of empty tree: %d (Expected: -1)\n", height_bst(&tree2));
+
+    insert_bst(&tree2, 50);
+    printf("Height after root (50) inserted: %d (Expected: 0)\n", height_bst(&tree2));
+
+    insert_bst(&tree2, 30);
+    insert_bst(&tree2, 70);
+    printf("Height after children (30, 70) inserted: %d (Expected: 1)\n", height_bst(&tree2));
+
+    insert_bst(&tree2, 20);
+    printf("Height after grandchild (20) inserted: %d (Expected: 2)\n", height_bst(&tree2));
+
+    destroy_bst(&tree2);
+}
+
+// Helper function to find the maximum of two integers
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+// Recursive function to calculate height
+int height_bst_node(BSTNodePtr self) {
+    if (self == NULL) {
+        return -1; // Base case: empty tree has height -1
+    } else {
+        // Height is 1 + the height of the taller subtree
+        return 1 + max(height_bst_node(self->left), 
+                       height_bst_node(self->right));
+    }
+}
+
+// Public wrapper function
+int height_bst(BST *self) {
+    return height_bst_node(self->root);
 }

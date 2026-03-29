@@ -84,3 +84,11 @@ void print_post_order_bst(BST *self);
  * @brief Automated unit tests for all BST functions and code paths
  */
 void bst_test();
+
+/**
+ * @brief Calculates the height of the binary search tree
+ *
+ * @param self Pointer to the binary search tree
+ * @return The height of the tree (root only = 0, empty = -1)
+ */
+int height_bst(BST *self);

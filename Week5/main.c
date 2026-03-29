@@ -2,11 +2,12 @@
 #include "bst.h"
 
 int main() {
-    // Run automated tests first
+    // Run automated tests
     bst_test();
 
-    // Optionally keep the ad-hoc test for manual verification
-    // bst_adhoc_test();
+    // Run interactive test
+    printf("\nStarting interactive test...\n");
+    bst_adhoc_test();
 
     return 0;
 }
