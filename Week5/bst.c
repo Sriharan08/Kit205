@@ -103,6 +103,42 @@ void print_in_order_bst(BST *self) {
 	print_in_order_bst_node(self->root);
 }
 
+// 1. Recursive helper (Hidden from bst.h)
+void print_pre_order_bst_node(BSTNodePtr self) {
+    if (self == NULL) {
+        printf("_");
+    } else {
+        printf("(");
+        printf(" %d ", self->data_item); // Print Root first
+        print_pre_order_bst_node(self->left);
+        print_pre_order_bst_node(self->right);
+        printf(")");
+    }
+}
+
+// 2. Public wrapper
+void print_pre_order_bst(BST *self) {
+    print_pre_order_bst_node(self->root);
+}
+
+// 3. Recursive helper (Hidden from bst.h)
+void print_post_order_bst_node(BSTNodePtr self) {
+    if (self == NULL) {
+        printf("_");
+    } else {
+        printf("(");
+        print_post_order_bst_node(self->left);
+        print_post_order_bst_node(self->right);
+        printf(" %d ", self->data_item); // Print Root last
+        printf(")");
+    }
+}
+
+// 4. Public wrapper
+void print_post_order_bst(BST *self) {
+    print_post_order_bst_node(self->root);
+}
+
 // recursive function to detroy all node
 void destroy_bst_node(BSTNodePtr self) {
 	if (self != NULL) {
@@ -120,20 +156,25 @@ void destroy_bst(BST *self) {
 	self->root = NULL;
 }
 
-void bst_adhoc_test() {
-	BST tree = new_bst();
-	int quit = 0;
-	int data;
-	while (quit == 0) {
-		printf("Enter some data: ");
-		scanf("%d", &data);
-		if (data != 0) {
-			insert_bst(&tree, data);
-		}
-		else {
-			quit = 1;
-		}
-	}
-	print_in_order_bst(&tree);
-	printf("\n");
+// modified bst_adhoc_test
+void bst_adhoc_test() {	
+    BST tree = new_bst();	
+    int data;	
+    
+    printf("Enter data (0 to stop):\n");
+    while (scanf("%d", &data) && data != 0) {		
+        insert_bst(&tree, data);		
+    }	
+
+    printf("\nIn-order:   "); 
+    print_in_order_bst(&tree);
+    
+    printf("\nPre-order:  "); 
+    print_pre_order_bst(&tree);
+    
+    printf("\nPost-order: "); 
+    print_post_order_bst(&tree);
+    printf("\n");
+
+    destroy_bst(&tree);
 }

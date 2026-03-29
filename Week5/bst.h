@@ -73,3 +73,9 @@ void destroy_bst(BST *self);
  * @brief Ad-hoc test function to interactively build and print a BST
  */
 void bst_adhoc_test();
+
+// Pre-order: Root, then Left, then Right
+void print_pre_order_bst(BST *self);
+
+// Post-order: Left, then Right, then Root
+void print_post_order_bst(BST *self);
