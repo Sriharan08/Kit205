@@ -119,3 +119,21 @@ void destroy_bst(BST *self) {
 	destroy_bst_node(self->root);
 	self->root = NULL;
 }
+
+void bst_adhoc_test() {
+	BST tree = new_bst();
+	int quit = 0;
+	int data;
+	while (quit == 0) {
+		printf("Enter some data: ");
+		scanf("%d", &data);
+		if (data != 0) {
+			insert_bst(&tree, data);
+		}
+		else {
+			quit = 1;
+		}
+	}
+	print_in_order_bst(&tree);
+	printf("\n");
+}
