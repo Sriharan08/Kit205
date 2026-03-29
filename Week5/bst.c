@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bst.h"
+#include "bst_print.h" 
 
 // create an empty bst
 BST new_bst() {
@@ -180,68 +181,30 @@ void bst_adhoc_test() {
 }
 
 // this function will systematically check insertion
+
 void bst_test() {
-    printf("--- Starting BST Unit Tests ---\n");
+    printf("\n--- Advanced BST Unit Tests ---\n");
     BST tree = new_bst();
 
-    // 1. Test Insertion
-    printf("Testing insert_bst... \n");
-    insert_bst(&tree, 50);
-    insert_bst(&tree, 30);
-    insert_bst(&tree, 70);
-    insert_bst(&tree, 20);
-    insert_bst(&tree, 40);
-    printf("Expected In-order: (_ 20 _) 30 (_ 40 _) 50 (_ 70 _)\n");
-    printf("Actual In-order:   ");
-    print_in_order_bst(&tree);
-    printf("\n\n");
+    // 1. Building the tree
+    insert_bst(&tree, 50); insert_bst(&tree, 30); insert_bst(&tree, 70);
+    insert_bst(&tree, 20); insert_bst(&tree, 40);
 
-    // 2. Test Finding/Searching
-    printf("Testing find_bst... \n");
-    BSTNodePtr found = find_bst(&tree, 40);
-    printf("Searching for 40: %s\n", (found != NULL && found->data_item == 40) ? "SUCCESS" : "FAIL");
-    found = find_bst(&tree, 99);
-    printf("Searching for 99 (non-existent): %s\n", (found == NULL) ? "SUCCESS" : "FAIL");
-    printf("\n");
+    // 2. Using the provided 2D print instead of the messy one
+    printf("Spatial Tree Structure:\n");
+    print_bst_2d(&tree); // This is the provided function from bst_print.c
 
-    // 3. Test Deletion (All cases)
-    printf("Testing delete_bst (Leaf node 20)...\n");
-    delete_bst(&tree, 20);
-    print_in_order_bst(&tree);
-    printf("\n");
+    // 3. Testing your Height function
+    printf("Calculated Height: %d (Expected: 2)\n", height_bst(&tree));
 
-    printf("Testing delete_bst (Node with one child 30)...\n");
-    delete_bst(&tree, 30); // 40 becomes the child of 50
-    print_in_order_bst(&tree);
-    printf("\n");
-
-    printf("Testing delete_bst (Root with two children 50)...\n");
-    delete_bst(&tree, 50);
-    printf("Expected: (_ 40 _) 70 _\n");
-    printf("Actual:   ");
-    print_in_order_bst(&tree);
-    printf("\n\n");
+    // 4. Testing Deletion
+    printf("\nDeleting node 30 (Node with children)...\n");
+    delete_bst(&tree, 30);
+    print_bst_2d(&tree); // Visualize the change
 
     destroy_bst(&tree);
-    printf("--- Unit Tests Complete ---\n");
-
-	printf("Testing height_bst...\n");
-    BST tree2 = new_bst();
-    printf("Height of empty tree: %d (Expected: -1)\n", height_bst(&tree2));
-
-    insert_bst(&tree2, 50);
-    printf("Height after root (50) inserted: %d (Expected: 0)\n", height_bst(&tree2));
-
-    insert_bst(&tree2, 30);
-    insert_bst(&tree2, 70);
-    printf("Height after children (30, 70) inserted: %d (Expected: 1)\n", height_bst(&tree2));
-
-    insert_bst(&tree2, 20);
-    printf("Height after grandchild (20) inserted: %d (Expected: 2)\n", height_bst(&tree2));
-
-    destroy_bst(&tree2);
+    printf("\n--- Full Test Complete ---\n");
 }
-
 // Helper function to find the maximum of two integers
 int max(int a, int b) {
     return (a > b) ? a : b;

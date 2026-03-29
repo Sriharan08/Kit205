@@ -92,3 +92,8 @@ void bst_test();
  * @return The height of the tree (root only = 0, empty = -1)
  */
 int height_bst(BST *self);
+
+// At the bottom of bst.h, before the final #endif (if present)
+int height_bst(BST *self);
+void bst_test();
+void bst_adhoc_test();
