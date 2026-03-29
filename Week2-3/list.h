@@ -32,3 +32,9 @@ void destroy_list(List* self);
 
 // Ad-hoc test function with interactive menu
 void list_adhoc_test();
+
+// Returns a new list that is the reversed version of the given list
+List reverse(List* self);
+
+// Takes two ordered lists and returns a new ordered merged list
+List merge(List* list1, List* list2);

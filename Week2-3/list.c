@@ -173,3 +173,60 @@ void list_adhoc_test() {
     destroy_list(&my_list);
     printf("List destroyed. Goodbye!\n");
 }
+
+List reverse(List* self) {
+    List reversed = new_list();
+    ListNodePtr current = self->head;
+
+    while (current != NULL) {
+        // Create a new node for the new list
+        ListNodePtr new_node = malloc(sizeof *new_node);
+        new_node->data = current->data;
+        
+        // Standard "insert at front" logic
+        new_node->next = reversed.head;
+        reversed.head = new_node;
+
+        current = current->next;
+    }
+    return reversed;
+}
+
+List merge(List* list1, List* list2) {
+    List merged = new_list();
+    ListNodePtr p1 = list1->head;
+    ListNodePtr p2 = list2->head;
+    
+    // Using a dummy node to simplify the "next" assignments
+    struct listNode dummy;
+    ListNodePtr tail = &dummy;
+    dummy.next = NULL;
+
+    while (p1 != NULL && p2 != NULL) {
+        ListNodePtr new_node = malloc(sizeof *new_node);
+        if (p1->data <= p2->data) {
+            new_node->data = p1->data;
+            p1 = p1->next;
+        } else {
+            new_node->data = p2->data;
+            p2 = p2->next;
+        }
+        new_node->next = NULL;
+        tail->next = new_node;
+        tail = new_node;
+    }
+
+    // If one list is longer than the other, copy the remaining nodes
+    ListNodePtr remaining = (p1 != NULL) ? p1 : p2;
+    while (remaining != NULL) {
+        ListNodePtr new_node = malloc(sizeof *new_node);
+        new_node->data = remaining->data;
+        new_node->next = NULL;
+        tail->next = new_node;
+        tail = new_node;
+        remaining = remaining->next;
+    }
+
+    merged.head = dummy.next;
+    return merged;
+}
