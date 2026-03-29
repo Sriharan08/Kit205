@@ -1,29 +1,18 @@
 #include <stdio.h>
 #include "list.h"
 
-// Function to test the linked list implementation
+// Comment out or keep your original test function
 void list_test() {
-    // Test insert_at_front
-    printf("Testing insert_at_front...\n");
-    List myList = new_list();
-    
-    insert_at_front(&myList, 5);
-    insert_at_front(&myList, 3);
-    insert_at_front(&myList, 7);
-    insert_at_front(&myList, 2);
-    insert_at_front(&myList, 0);
-    
-    printf("Expected: 0, 2, 7, 3, 5\n");
-    printf("Result: ");
-    print_list(&myList);
-    
-    // Clean up
-    destroy_list(&myList);
-    
-    // TODO: Add tests for insert_in_order and delete_list
+    // ... your original test code here (commented out for now)
+    printf("Original list_test is commented out.\n");
 }
 
 int main() {
-    list_test();
+    // Comment this out to test the ad-hoc version:
+    // list_test();
+    
+    // Call the ad-hoc test instead:
+    list_adhoc_test();
+    
     return 0;
 }
