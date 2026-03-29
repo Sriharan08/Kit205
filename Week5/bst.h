@@ -79,3 +79,8 @@ void print_pre_order_bst(BST *self);
 
 // Post-order: Left, then Right, then Root
 void print_post_order_bst(BST *self);
+
+/**
+ * @brief Automated unit tests for all BST functions and code paths
+ */
+void bst_test();

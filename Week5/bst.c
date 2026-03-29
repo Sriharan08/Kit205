@@ -178,3 +178,50 @@ void bst_adhoc_test() {
 
     destroy_bst(&tree);
 }
+
+// this function will systematically check insertion
+void bst_test() {
+    printf("--- Starting BST Unit Tests ---\n");
+    BST tree = new_bst();
+
+    // 1. Test Insertion
+    printf("Testing insert_bst... \n");
+    insert_bst(&tree, 50);
+    insert_bst(&tree, 30);
+    insert_bst(&tree, 70);
+    insert_bst(&tree, 20);
+    insert_bst(&tree, 40);
+    printf("Expected In-order: (_ 20 _) 30 (_ 40 _) 50 (_ 70 _)\n");
+    printf("Actual In-order:   ");
+    print_in_order_bst(&tree);
+    printf("\n\n");
+
+    // 2. Test Finding/Searching
+    printf("Testing find_bst... \n");
+    BSTNodePtr found = find_bst(&tree, 40);
+    printf("Searching for 40: %s\n", (found != NULL && found->data_item == 40) ? "SUCCESS" : "FAIL");
+    found = find_bst(&tree, 99);
+    printf("Searching for 99 (non-existent): %s\n", (found == NULL) ? "SUCCESS" : "FAIL");
+    printf("\n");
+
+    // 3. Test Deletion (All cases)
+    printf("Testing delete_bst (Leaf node 20)...\n");
+    delete_bst(&tree, 20);
+    print_in_order_bst(&tree);
+    printf("\n");
+
+    printf("Testing delete_bst (Node with one child 30)...\n");
+    delete_bst(&tree, 30); // 40 becomes the child of 50
+    print_in_order_bst(&tree);
+    printf("\n");
+
+    printf("Testing delete_bst (Root with two children 50)...\n");
+    delete_bst(&tree, 50);
+    printf("Expected: (_ 40 _) 70 _\n");
+    printf("Actual:   ");
+    print_in_order_bst(&tree);
+    printf("\n\n");
+
+    destroy_bst(&tree);
+    printf("--- Unit Tests Complete ---\n");
+}
